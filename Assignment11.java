@@ -12,6 +12,7 @@ public class Assignment11 extends JFrame implements ActionListener{
   
   private double total = 0, storedInput = 0;
   private String storedOperator = "", totalDisplay = "", inputString = "";
+  private JTextField totalField;
   
   public static void main(String[] args){
    Assignment11 calculator = new Assignment11();
@@ -21,18 +22,20 @@ public class Assignment11 extends JFrame implements ActionListener{
   public Assignment11(){
     setTitle("Simple Calculator by Meghan Moore");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(400, 550);
+    setSize(400, 300);
     setVisible(true);
     
     JPanel basePanel = new JPanel();
     setLayout(new BorderLayout());
     add(basePanel,BorderLayout.CENTER);
-    //basePanel.setLayout(new GridLayout(2,1));
+    basePanel.setLayout(new GridLayout(1,1));
+    basePanel.setSize(400, 100);
     JPanel textPanel = new JPanel();
     textPanel.setLayout(new BorderLayout());
     basePanel.add(textPanel, BorderLayout.CENTER);
     totalField = new JTextField();
     textPanel.add(totalField);
+    totalField.setSize(400, 100);
   
     //add buttons
     JPanel buttonPanel = new JPanel();
@@ -158,17 +161,19 @@ public class Assignment11 extends JFrame implements ActionListener{
     double input;
     
     if (inputString == "")
-      input = 0;
+        input = 0;
     else
       input = Double.parseDouble(inputString.trim());
     
-    if ((total != 0) & (storedOperator != "")){
+    if (storedOperator != ""){
       if (storedInput != 0){
         total = calculate(storedInput, input);
-        storedInput = 0;
+        storedInput = 0;      
       } // end if
-      else
+      else if (total != 0){    
         total = calculate(total, input);
+        storedInput = 0;
+      } //end else if         
       
       //display total:
       totalDisplay = (Double.toString(total));
